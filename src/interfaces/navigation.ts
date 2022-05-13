@@ -36,5 +36,11 @@ export interface UserProfileParamList {
 }
 export type InternalNavigatorParamsList = {
   UserProfile: UserProfileParamList;
+  EditProfile: undefined;
+  ContactInformation: undefined;
+  Settings: undefined;
 }
 export type UserProfileScreenProps = NativeStackScreenProps<InternalNavigatorParamsList, "UserProfile">;
+export type EditProfileScreenProps = NativeStackScreenProps<InternalNavigatorParamsList, "EditProfile">;
+export type SettingsScreenProps = NativeStackScreenProps<InternalNavigatorParamsList, "Settings">;
+export type ContactInformationScreenProps = NativeStackScreenProps<InternalNavigatorParamsList, "ContactInformation">;

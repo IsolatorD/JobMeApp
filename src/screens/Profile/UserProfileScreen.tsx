@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import ActionSheet from "../../components/ActionSheet";
 import Avatar from "../../components/Avatar";
 import Button from "../../components/Button/Button";
 import ButtonIcon from "../../components/Button/ButtonIcon";
 import Container from "../../components/Container";
 import Input from "../../components/Input/Input";
+import ProfileMenu from "../../components/Menus/ProfileMenu";
 import ScrollContainer from "../../components/ScrollContainer";
 import icons from "../../constants/icons";
 import images from "../../constants/images";
 import { COLORS, FONTS, SIZES } from "../../constants/theme";
+import { useActionSheet } from "../../hooks/useActionSheet";
 import { useAuth } from "../../hooks/useAuth";
 import { useUsers } from "../../hooks/useUsers";
 import { IUser } from "../../interfaces/auth";
@@ -18,6 +21,7 @@ const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ route, navigation
   const { userId } = route?.params
   const { user } = useAuth()
   const { selectedUser, fetchUser, clearUser } = useUsers()
+  const { sheetRef, show, onClose } = useActionSheet()
   const [localUser, setLocalUser] = useState<IUser>()
   const [isAnotherUser, setIsAnotherUser] = useState(false)
   const [selectedTab, setSelectedTab] = useState("profile")
@@ -48,6 +52,10 @@ const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ route, navigation
     navigation.goBack()
   }
 
+  const onPressMenu = () => {
+    show()
+  }
+
   return (
     <ScrollContainer>
       <Container padding>
@@ -68,12 +76,17 @@ const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ route, navigation
               style={styles.headerCenterInput}
             />
           </View>
-          <View>
-            <ButtonIcon
-              icon={icons.dotMenu}
-              style={styles.headerRightButton}
-            />
-          </View>
+          {
+            !isAnotherUser && (
+              <View>
+                <ButtonIcon
+                  icon={icons.dotMenu}
+                  style={styles.headerRightButton}
+                  onPress={onPressMenu}
+                />
+              </View>
+            )
+          }
         </View>
         <View style={styles.content}>
           <View style={styles.contentHeader}>
@@ -119,6 +132,7 @@ const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ route, navigation
               >
                 <ButtonIcon
                   icon={icons.dotMenu}
+                  onPress={onPressMenu}
                 />
               </View>
             </View>
@@ -193,8 +207,23 @@ const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ route, navigation
               >
                 {
                   selectedTab === 'profile' && (
-                    <View>
-
+                    <View
+                      style={styles.contentTabBody}
+                    >
+                      <View
+                        style={styles.biographyContainer}
+                      >
+                        <Text
+                          style={styles.biographyTitle}
+                        >
+                          Acerca de
+                        </Text>
+                        <Text
+                          style={styles.biographyText}
+                        >
+                          {localUser?.biography}
+                        </Text>
+                      </View>
                     </View>
                   )
                 }
@@ -216,6 +245,12 @@ const UserProfileScreen: React.FC<UserProfileScreenProps> = ({ route, navigation
             </View>
           </View>
         </View>
+        <ActionSheet
+          sheetRef={sheetRef}
+          onClose={onClose}
+          title="Opciones"
+          children={<ProfileMenu isAnotherUser={isAnotherUser} onCloseMenu={onClose} />}
+        />
       </Container>
     </ScrollContainer>
   )
@@ -313,6 +348,22 @@ const styles = StyleSheet.create({
   },
   contentTabActiveTitle: {
     color: COLORS.primary
+  },
+  biographyContainer: {
+  },
+  biographyTitle: {
+    ...FONTS.body,
+    color: COLORS.black,
+    fontWeight: "bold",
+    marginBottom: SIZES.padding / 2
+  },
+  biographyText: {
+    ...FONTS.caption,
+    color: COLORS.gray,
+  },
+  contentTabBody: {
+    flex: 1,
+    paddingVertical: SIZES.padding,
   }
 });
 

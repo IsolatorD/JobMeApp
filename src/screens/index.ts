@@ -12,6 +12,11 @@ import EditorScreen from "./Tabs/EditorScreen";
 
 // Internal Screens
 import UserProfileScreen from "./Profile/UserProfileScreen";
+import EditProfileScreen from "./Profile/EditProfileScreen";
+import ContactInformationScreen from "./Profile/ContactInformationScreen";
+
+// Settings screens
+import SettingsScreen from "./Settings";
 
 export {
   SplashScreen,
@@ -22,5 +27,8 @@ export {
   JobsScreen,
   NotificationScreen,
   EditorScreen,
-  UserProfileScreen
+  UserProfileScreen,
+  EditProfileScreen,
+  ContactInformationScreen,
+  SettingsScreen
 }

@@ -12,6 +12,7 @@ import InternalNavigator from "./internal";
 import AuthService from "../services/auth";
 import { useDispatch } from "react-redux";
 import { authSlice } from "../store/reducers/auth";
+import { me } from "../store/actions/auth";
 
 const Stack = createNativeStackNavigator<MainNavigatorParamsList>();
 
@@ -73,10 +74,16 @@ const MainNavigator: React.FC = () => {
         {
           token ? 
           (
-            <Stack.Screen
-              name="App"
-              component={AppNavigator}
-            />
+            <>
+              <Stack.Screen
+                name="App"
+                component={AppNavigator}
+              />
+              <Stack.Screen
+                name="Internal"
+                component={InternalNavigator}
+              />
+            </>
           )
           :
           (
@@ -86,10 +93,6 @@ const MainNavigator: React.FC = () => {
             />
           )
         }
-        <Stack.Screen
-          name="Internal"
-          component={InternalNavigator}
-        />
       </Stack.Navigator>
     </NavigationContainer>
   )

@@ -14,6 +14,11 @@ const like = require('../assets/icons/like.png')
 const plus = require('../assets/icons/plus.png')
 const search = require('../assets/icons/search.png')
 const share = require('../assets/icons/share.png')
+const close = require('../assets/icons/cancel.png')
+const settings = require('../assets/icons/settings.png')
+const email = require('../assets/icons/email.png')
+const phone = require('../assets/icons/phone.png')
+const jobmeIcon = require('../assets/icons/jobme.png')
 
 export default {
   backward,
@@ -31,5 +36,10 @@ export default {
   like,
   plus,
   search,
-  share
+  share,
+  close,
+  settings,
+  email,
+  phone,
+  jobmeIcon
 }

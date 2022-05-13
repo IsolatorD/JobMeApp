@@ -17,7 +17,10 @@ export interface IUser {
   last_name: string;
   username: string;
   email: string;
+  phone: string;
   avatar: string;
+  biography: string;
+  born_date: string;
 }
 
 export interface IAuthContext {
